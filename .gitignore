@@ -20,10 +20,8 @@ build-log.xml
 local.properties
 
 .project
-.classpath
 .settings
 target/
-libs/
 classes/
 gen-external-apklibs/
 tmp/
