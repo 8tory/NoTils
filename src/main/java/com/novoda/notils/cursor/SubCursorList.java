@@ -2,11 +2,7 @@ package com.novoda.notils.cursor;
 
 import android.database.Cursor;
 
-import java.util.List;
-import java.util.ListIterator;
-import java.util.ArrayList;
-
-public class SubCursorList<T> extends SimpleCursorList {
+public class SubCursorList<T> extends SimpleCursorList<T> {
     private int start;
     private int end;
 
