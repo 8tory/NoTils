@@ -344,7 +344,8 @@ public class SimpleCursorList<T> implements CursorList<T> {
         return new SubCursorList<T>(cursor, marshaller, start, end);
     }
 
-    private List<T> subArrayList(int start, int end) {
+    @SuppressWarnings("unused")
+	private List<T> subArrayList(int start, int end) {
         //List<T> list = new SimpleCursorList<T>(cursor, marshaller); add() did not be implemented
         List<T> list = new ArrayList<T>();
         if (start < end) {
