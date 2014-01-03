@@ -5,6 +5,8 @@ import android.database.CharArrayBuffer;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.DataSetObserver;
+import android.database.MatrixCursor;
+import android.database.MergeCursor;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -17,7 +19,7 @@ import java.util.ListIterator;
 
 public class SimpleCursorList<T> implements CursorList<T> {
 
-    private final Cursor cursor;
+    private Cursor cursor;
     private final CursorMarshaller<T> marshaller;
 
     public SimpleCursorList(Cursor cursor, CursorMarshaller<T> marshaller) {
@@ -278,7 +280,16 @@ public class SimpleCursorList<T> implements CursorList<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        throw new UnsupportedOperationException();
+        if (c instanceof Cursor) {
+            if (cursor.getCount() == 0) {
+                cursor = (Cursor)c;
+            } else {
+                cursor = new MergeCursor(new Cursor[] {cursor, (Cursor)c});
+            }
+        } else {
+            throw new UnsupportedOperationException();
+        }
+        return true;
     }
 
     @Override
@@ -298,7 +309,7 @@ public class SimpleCursorList<T> implements CursorList<T> {
 
     @Override
     public void clear() {
-        throw new UnsupportedOperationException();
+        cursor = new MatrixCursor(cursor.getColumnNames());
     }
 
     @Override
