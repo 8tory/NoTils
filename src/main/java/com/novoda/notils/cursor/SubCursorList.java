@@ -54,13 +54,19 @@ public class SubCursorList<T> extends SimpleCursorList<T> {
 
     @Override
     public boolean moveToPosition(int position) {
+        boolean ret = true;
         if (position < 0) {
-            return false;
+            position = -1;
+            ret = false;
         }
+
         if (position >= getCount()) {
-            return false;
+            position = getCount();
+            ret = false;
         }
-        return cursor.moveToPosition(position + start);
+
+        cursor.moveToPosition(position + start);
+        return ret;
     }
 
     @Override
