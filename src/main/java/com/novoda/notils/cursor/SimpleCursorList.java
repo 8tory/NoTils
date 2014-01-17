@@ -406,6 +406,7 @@ public class SimpleCursorList<T> implements CursorList<T> {
             }
         }
 
+        indexMap.put(ret, orgIndex);
         return ret;
     }
 
