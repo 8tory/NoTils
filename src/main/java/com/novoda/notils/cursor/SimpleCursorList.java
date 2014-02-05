@@ -32,6 +32,10 @@ public class SimpleCursorList<T> implements CursorList<T> {
         this.marshaller = marshaller;
         indexMap = new HashMap<T, Integer>();
 
+        initMappings();
+    }
+
+    private void initMappings() {
         currentToOriginIndex = new ArrayList<Integer>(cursor.getCount() + 1);
         originToCurrentIndex = new int[cursor.getCount() + 1];
         for (int i = 0; i <= cursor.getCount(); i++) {
@@ -316,13 +320,7 @@ public class SimpleCursorList<T> implements CursorList<T> {
         if (c instanceof Cursor) {
             if (cursor.getCount() == 0) {
                 cursor = (Cursor)c;
-
-                currentToOriginIndex = new ArrayList<Integer>(cursor.getCount() + 1);
-                originToCurrentIndex = new int[cursor.getCount() + 1];
-                for (int i = 0; i <= cursor.getCount(); i++) {
-                    currentToOriginIndex.add(i);
-                    originToCurrentIndex[i] = i;
-                }
+                initMappings();
             } else {
                 int size = cursor.getCount();
                 int addSize = ((Cursor) c).getCount();
@@ -360,8 +358,7 @@ public class SimpleCursorList<T> implements CursorList<T> {
     @Override
     public void clear() {
         cursor = new MatrixCursor(cursor.getColumnNames());
-        currentToOriginIndex = null;
-        originToCurrentIndex = null;
+        initMappings();
     }
 
     @Override
