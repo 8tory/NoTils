@@ -36,9 +36,11 @@ public class SimpleCursorList<T> implements CursorList<T> {
     }
 
     private void initMappings() {
-        currentToOriginIndex = new ArrayList<Integer>(cursor.getCount() + 1);
-        originToCurrentIndex = new int[cursor.getCount() + 1];
-        for (int i = 0; i <= cursor.getCount(); i++) {
+        int count = 0;
+        if (cursor != null) count = cursor.getCount();
+        currentToOriginIndex = new ArrayList<Integer>(count + 1);
+        originToCurrentIndex = new int[count + 1];
+        for (int i = 0; i <= count; i++) {
             currentToOriginIndex.add(i);
             originToCurrentIndex[i] = i;
         }
